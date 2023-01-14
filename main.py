@@ -1,14 +1,14 @@
 from sys import argv, exit
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPainter, QColor
-from PyQt5 import uic
-from random import choice
+from random import randrange
+from UI import Ui_MainWindow
 
 
-class YellowCircles(QMainWindow):
+class YellowCircles(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.setWindowTitle('Git и желтые окружности')
         self.painting = False
         self.pushButton.clicked.connect(self.paint)
@@ -22,11 +22,14 @@ class YellowCircles(QMainWindow):
             qp = QPainter()
             qp.begin(self)
 
-            range_num = choice([i for i in range(5, 13)])
+            range_num = randrange(5, 13)
             for _ in range(range_num):
-                diameter = choice([j for j in range(20, 151)])
-                qp.setBrush(QColor(255, 255, 0))
-                x, y = choice([l for l in range(150, 451)]), choice([k for k in range(150, 351)])
+                diameter = randrange(20, 151)
+                x, y = randrange(150, 451), randrange(150, 351)
+                red = randrange(0, 256)
+                green = randrange(0, 256)
+                blue = randrange(0, 256)
+                qp.setBrush(QColor(red, green, blue))
                 qp.drawEllipse(x, y, diameter, diameter)
 
 
